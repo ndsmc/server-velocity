@@ -1,0 +1,320 @@
+version: "1.1.15"
+# Available serializers:
+# LEGACY_AMPERSAND - "&c&lExample &c&9Text".
+# LEGACY_SECTION - "§c§lExample §c§9Text".
+# MINIMESSAGE - "<bold><red>Example</red> <blue>Text</blue></bold>". (https://webui.adventure.kyori.net/)
+# GSON - "[{"text":"Example","bold":true,"color":"red"},{"text":" ","bold":true},{"text":"Text","bold":true,"color":"blue"}]". (https://minecraft.tools/en/json_text.php/)
+# GSON_COLOR_DOWNSAMPLING - Same as GSON, but uses downsampling.
+serializer: LEGACY_AMPERSAND
+prefix: "LimboFilter &6>>&f"
+
+# Don't use \n, use {NL} for new line, and {PRFX} for prefix.
+main:
+  # Check if player's Minecraft client sends the network packet with the settings.
+  check-client-settings: true
+  # Check if player's Minecraft client has a brand.
+  check-client-brand: true
+  # If player's Minecraft client brand (e.g. fabric or forge) is set here, then this player will be kicked.
+  blocked-client-brands:
+    - "brand1"
+    - "brand2"
+  # Time in milliseconds, how frequently will the cache list with verified players be reset. Before that time, verified players can join the server without passing antibot checks.
+  purge-cache-millis: 3600000
+  # Max attempts, which a player has to solve the captcha.
+  captcha-attempts: 2
+  # Duration of Falling Check in Minecraft ticks (1 tick = 0.05 second, 20 ticks = 1 second).
+  falling-check-ticks: 128
+  # Maximum time to check the player in milliseconds. If the player stays on the filter limbo for longer than this time, then the check will fail.
+  time-out: 15000
+  # Same, but for Geyser users.
+  geyser-time-out: 45000
+  # The timeout for Netty. Max ping while being on the filter limbo. Used to remove useless buffers from RAM.
+  max-ping: 3500
+  # Change the parameters below only if you know what they mean.
+  non-valid-position-xz-attempts: 10
+  non-valid-position-y-attempts: 10
+  max-valid-position-difference: 0.01
+  # Parameter for developers and contributors.
+  falling-check-debug: false
+  # Should captcha be displayed in the left hand. May cause problems with entering captcha for users with 4:3 monitors. Version: 1.9+
+  captcha-left-hand: false
+  # Available states: ONLY_POSITION, ONLY_CAPTCHA, CAPTCHA_POSITION, CAPTCHA_ON_POSITION_FAILED
+  # Meaning:
+  # ONLY_POSITION -> Only falling check (Player will be spawned in the void, server will check player's coordinates, speed, acceleration).
+  # ONLY_CAPTCHA -> Only captcha (Map items with a captcha image will be given to the players, players need to solve captcha, and send the answer in the chat).
+  # CAPTCHA_POSITION -> Falling and Captcha checking concurrently (Player will be kicked, if he fails either falling check or captcha checking).
+  # CAPTCHA_ON_POSITION_FAILED -> Initially, the falling check will be started, but if the player fails that check, the captcha checking will be started.
+  check-state: CAPTCHA_POSITION
+  # See "filter-auto-toggle.check-state-toggle".
+  check-state-non-toggled: CAPTCHA_ON_POSITION_FAILED
+  # See "filter-auto-toggle.check-state-toggle".
+  geyser-check-state: CAPTCHA_POSITION
+  # See "filter-auto-toggle.check-state-toggle".
+  geyser-check-state-non-toggled: CAPTCHA_ON_POSITION_FAILED
+  load-world: false
+  # World file type:
+  #  SCHEMATIC (MCEdit .schematic, 1.12.2 and lower, not recommended)
+  #  STRUCTURE (structure block .nbt, any Minecraft version is supported, but the latest one is recommended).
+  #  WORLDEDIT_SCHEM (WorldEdit .schem, any Minecraft version is supported, but the latest one is recommended).
+  world-file-type: STRUCTURE
+  world-file-path: "world.nbt"
+  # World time in ticks (24000 ticks == 1 in-game day)
+  world-ticks: 1000
+  # World light level (from 0 to 15)
+  world-light-level: 15
+  # Should we override block light level (to light up the nether and the end)
+  world-override-block-light-level: true
+  # Available: ADVENTURE, CREATIVE, SURVIVAL, SPECTATOR
+  game-mode: ADVENTURE
+  # Unit of time in seconds for the Auto Toggles the Statistics.
+  unit-of-time-cps: 300
+  # Unit of time in seconds for the Auto Toggles and the Statistics.
+  unit-of-time-pps: 5
+  # Time in milliseconds how much we should wait before re-enabling logs after attacks
+  log-enabler-check-refresh-rate: 1000
+  # Duration (in seconds) between regeneration of captchas
+  captcha-regenerate-rate: 3600
+  # Coordinates for the falling check
+  falling-coords:
+    x: 0
+    y: 512
+    z: 0
+    teleport-id: 44
+  # A "USERNAME - IP" list containing information about players who should join the server without verification.
+  whitelisted-players:
+    - username: "TestUser123"
+      ip: "127.0.0.1"
+  # Minimum/maximum total connections amount per the unit of time to toggle anti-bot checks.
+  # -1 to disable the check.
+  # 0 to enable on any connections per the unit of time.
+  filter-auto-toggle:
+    # All players will bypass all anti-bot checks
+    all-bypass: 0
+    # Online mode players will bypass all anti-bot checks.
+    # Doesn't work with online-mode-verify: -1
+    online-mode-bypass: 49
+    # Verify Online Mode connection before AntiBot.
+    # If connections per unit of time amount is bigger than the limit: online mode players will need to reconnect.
+    # Else: Some attacks can consume more cpu and network, and can lead to long-lasting Mojang rate-limiting.
+    # Only works if you have an auth plugin installed. In other cases you should configure need-to-reconnect parameter
+    online-mode-verify: 79
+    # Toggles check-state/check-state-non-toggled.
+    # It is not recommended to enable it, if you want to protect your server from spam-bots.
+    # If connections per unit of time amount is bigger than the limit: check-state will be used.
+    # Else: check-state-non-toggled will be used.
+    check-state-toggle: 0
+    # The player will need to reconnect after passing AntiBot check.
+    need-to-reconnect: 129
+    # Picture in the MOTD Server Ping packet will be disabled.
+    disable-motd-picture: 25
+    # All the log messages from all plugins will be disabled.
+    disable-log: 129
+  world-coords:
+    x: 0
+    y: 0
+    z: 0
+  captcha-generator:
+    # Prepares Captcha packets, consumes x8 more RAM, but improves CPU performance during bot attacks. It's recommended to disable it, if you have less than 2GB of RAM.
+    prepare-captcha-packets: false
+    # List of paths to the background image to draw on captcha. Any format, 128x128 128x128 px (will be automatically resized and stretched to the correct size). [] if empty.
+    backplate-paths:
+      - ""
+    # Path to the font files to draw on captcha (ttf), can be empty.
+    fonts-path:
+      - ""
+    # Use standard fonts(SANS_SERIF/SERIF/MONOSPACED), use false only if you provide fonts path
+    use-standard-fonts: true
+    letter-offset-x: 12
+    letter-offset-y: 0
+    font-letter-spacing-x: -14
+    font-letter-spacing-y: 0
+    render-font-size: 78.0
+    font-letter-width: 44
+    font-letter-height: 128
+    font-outline: true
+    font-rotate: true
+    font-ripple: true
+    font-ripple-amplitude-width: 100.0
+    font-ripple-amplitude-height: 10.0
+    font-outline-rate: 1.25
+    font-outline-offset-x: -4
+    font-outline-offset-y: 4
+    font-outline-override-radius: 1
+    # Set 0 to disable
+    curve-size: 2
+    # Set 0 to disable
+    curves-amount: 3
+    # RGB colors without #
+    curves-colors:
+      - "000000"
+    strikethrough: false
+    underline: true
+    pattern: "abcdefghijklmnopqrstuvwxyz1234567890"
+    # If enabled, both lowercase and uppercase captcha answers entered by players will be correct
+    ignore-case: true
+    length: 3
+    images-count: 1000
+    number-spelling: false
+    # Set to true if you want to verify the number spelling configuration.
+    # The results will be saved to the number_spelling.txt file.
+    save-number-spelling-output: false
+    each-word-on-separate-line: true
+    # If the number ends with any key specified here, the corresponding value will be used.
+    # For example: if exception 11 is specified with value 'eleven', the number 411 will be spelt as 'four hundred eleven'.
+    number-spelling-exceptions:
+      "11": "eleven"
+      "12": "twelve"
+      "13": "thirteen"
+      "14": "fourteen"
+      "15": "fifteen"
+      "16": "sixteen"
+      "17": "seventeen"
+      "18": "eighteen"
+      "19": "nineteen"
+    # null or "" means that the digit should be skipped.
+    # Note: all the characters used here (including the space) must be listed in pattern.
+    number-spelling-words:
+      - - ""
+        - "one"
+        - "two"
+        - "three"
+        - "four"
+        - "five"
+        - "six"
+        - "seven"
+        - "eight"
+        - "nine"
+      - - ""
+        - "ten"
+        - "twenty"
+        - "thirty"
+        - "forty"
+        - "fifty"
+        - "sixty"
+        - "seventy"
+        - "eighty"
+        - "ninety"
+      - - ""
+        - "one hundred"
+        - "two hundred"
+        - "three hundred"
+        - "four hundred"
+        - "five hundred"
+        - "six hundred"
+        - "seven hundred"
+        - "eight hundred"
+        - "nine hundred"
+    rgb-color-list:
+      - "000000"
+      - "AA0000"
+      - "00AA00"
+      - "0000AA"
+      - "AAAA00"
+      - "AA00AA"
+      - "00AAAA"
+    gradient:
+      gradient-enabled: false
+      gradients-count: 32
+      start-x: 0.0
+      start-y: 40.0
+      end-x: 128.0
+      end-y: 80.0
+      start-x-randomness: 0.0
+      start-y-randomness: 2.0
+      end-x-randomness: 0.0
+      end-y-randomness: 2.0
+      # Numbers ranging from 0.0 to 1.0 specifying the distribution of colors along the gradient. Can be empty.
+      fractions:
+        - 0.0
+        - 0.1
+        - 0.2
+        - 0.3
+        - 0.4
+        - 0.5
+        - 0.6
+        - 0.7
+        - 0.8
+        - 0.9
+  framed-captcha:
+    framed-captcha-enabled: false
+    width: 3
+    height: 3
+    frame-rotation-chance: 0.33
+    autoscale-font: true
+    coords:
+      x: -3
+      y: 128
+      z: 2
+      offset-1-7:
+        x: 0
+        y: -2
+        z: 1
+  # Available dimensions: OVERWORLD, NETHER, THE_END
+  botfilter-dimension: THE_END
+  coords:
+    captcha-x: -1.5
+    # If your server supports Minecraft 1.7, don't set captcha-y to 0. https://media.discordapp.net/attachments/878241549857738793/915165038464098314/unknown.png
+    captcha-y: 128.0
+    captcha-z: 0.5
+    captcha-yaw: 90.0
+    captcha-pitch: 38.0
+    falling-check-yaw: 90.0
+    falling-check-pitch: 10.0
+  tcp-listener:
+    # Experimental proxy check feature
+    # Checks the proxy via comparing L4 (TCP PSH+ACK -> TCP ACK) and L7 (Minecraft KeepAlive) ping
+    # Works better with falling check enabled (150+ falling-check-ticks)
+    # Needs libpcap (libpcap-dev) on Linux; WinPcap/npcap on Windows
+    # Needs CAP_NET_RAW (or super-user) on Linux
+    # Doesn't work if Velocity is behind reverse-proxy (haproxy, protection services, etc)
+    proxy-detector-enabled: false
+    # Difference between TCP (L4) and Minecraft (L7) ping in milliseconds to detect proxies.
+    proxy-detector-difference: 5
+    interface-name: "any"
+    # How many bytes we should take from the each frame to analyse. 120 is enough for any TCP+IP header analysing
+    snaplen: 120
+    # How many milliseconds should the delay be between frame analysis.
+    listen-delay: 50
+    # Time in millis for capturing frames
+    timeout: 10
+    # Log L4 and L7 ping
+    debug-on-fail: false
+    debug-on-success: false
+  # Available values: FALSE, TRUE, PERMISSION
+  #  FALSE - the command will be disallowed
+  #  TRUE - the command will be allowed if player has false permission state
+  #  PERMISSION - the command will be allowed if player has true permission state
+  command-permission-state:
+    # Permission: limbofilter.admin.sendfilter
+    send-filter: PERMISSION
+    # Permission: limbofilter.admin.reload
+    reload: PERMISSION
+    # Permission: limbofilter.admin.stats
+    stats: PERMISSION
+    # Permission: limbofilter.admin.help
+    help: TRUE
+  # Leave title fields empty to disable.
+  strings:
+    reload: "{PRFX} &aУспешно перезагружено!"
+    client-settings-kick: "{PRFX}{NL}&cВаш клиент не отправляет пакеты настроек."
+    client-brand-kick: "{PRFX}{NL}&cВаш клиент не отправляет пакет бренда или он заблокирован."
+    proxy-check-kick: "{PRFX}{NL}&cВаше соединение вызывает подозрения."
+    checking-chat: "{PRFX} Проверка Bot-Filter началась, пожалуйста, подождите и не двигайтесь.."
+    checking-title: "{PRFX}"
+    checking-subtitle: "&aПожалуйста, подождите.."
+    checking-captcha-chat: "{PRFX} &aПожалуйста, решите капчу, у вас есть &6{0} &aпопыток."
+    checking-wrong-captcha-chat: "{PRFX} &cВы неправильно ввели капчу, у вас осталось &6{0} &cпопыток."
+    checking-captcha-title: "&aПожалуйста, решите капчу."
+    checking-captcha-subtitle: "&aУ вас есть &6{0} &aпопыток."
+    successful-cracked: "{PRFX} &aУспешно прошел проверку Bot-Filter."
+    successful-premium-kick: "{PRFX}{NL}&aУспешно прошел проверку Bot-Filter.{NL}&6Пожалуйста, переподключитесь к серверу!"
+    captcha-failed-kick: "{PRFX}{NL}&cВы ошиблись при проверке капчи.{NL}&6Пожалуйста, переподключитесь к серверу."
+    falling-check-failed-kick: "{PRFX}{NL}&cПроверка падения не удалась.{NL}&6Пожалуйста, переподключитесь к серверу."
+    times-up: "{PRFX}{NL}&cВы превысили максимальное время проверки Bot-Filter.{NL}&6Пожалуйста, переподключитесь к серверу."
+    stats-format: "&c&lВсего заблокировано: &6&l{0} &c&l| Соединения: &6&l{1}s &c&l| Пинги: &6&l{2}s &c&l| Всего соединений: &6&l{3} &c&l| L7 Пинг: &6&l{4} &c&l| L4 Пинг: &6&l{5}"
+    stats-enabled: "{PRFX} &aТеперь вы видите статистику в вашей строке действий."
+    stats-disabled: "{PRFX} &cВы больше не видите статистику в вашей строке действий."
+    send-player-successful: "{PRFX} Успешно отправлен {0} в фильтр лимбо."
+    send-server-successful: "{PRFX} Успешно отправлено {0} игроков из {1} в фильтр лимбо."
+    send-failed: "{PRFX} Нет зарегистрированных серверов или подключенных игроков с именем {0}."
+    captcha-not-ready-yet: "{PRFX} Капча еще не готова. Попробуйте снова через несколько секунд"

@@ -1,0 +1,124 @@
+version: "1.2.2"
+#Available serializers:
+#LEGACY_AMPERSAND - "&c&lExample &c&9Text".
+#LEGACY_SECTION - "§c§lExample §c§9Text".
+#MINIMESSAGE - "<bold><red>Example</red> <blue>Text</blue></bold>". (https://webui.adventure.kyori.net/)
+#GSON - "[{"text":"Example","bold":true,"color":"red"},{"text":" ","bold":true},{"text":"Text","bold":true,"color":"blue"}]". (https://minecraft.tools/en/json_text.php/)
+#GSON_COLOR_DOWNSAMPLING - Same as GSON, but uses downsampling.
+serializer: LEGACY_AMPERSAND
+main:
+  #VelocityTools will consume more RAM if this option is enabled, but compatibility with other plugins will be better
+  #Enable it if you have a plugin installed that bypasses compression (e.g. Geyser)
+  save-uncompressed-packets: false
+#Don't use \n, use {NL} for new line. Ampersand (&) color codes are supported too.
+
+#
+#Permissions:
+#  │
+#  └── Commands:
+#      │
+#      ├── /velocitytools reload
+#      │   └── velocitytools.admin.reload
+#      ├── /alert
+#      │   └── velocitytools.command.alert
+#      ├── /find
+#      │   └── velocitytools.command.find
+#      ├── /send
+#      │   └── velocitytools.command.send
+#      └── /hub
+#          ├── velocitytools.command.hub
+#          └── velocitytools.command.hub.bypass.<servername> (disabled-servers bypass permission)
+#
+commands:
+  alert:
+    enabled: true
+    prefix: "&8[&4Alert&8] &r{0}"
+    message-needed: "&cYou must supply the message."
+    empty-proxy: "&cNo one is connected to this proxy!"
+  find:
+    enabled: true
+    username-needed: "&cYou must supply the username."
+    player-online-at: "&6{0} &fis online at &6{1}"
+    player-not-online: "&6{0} &fis not online."
+  send:
+    enabled: true
+    console: "CONSOLE"
+    not-enough-arguments: "&fNot enough arguments. Usage: &6/send <server|player|all|current> <target>"
+    #Set to "" to disable.
+    you-got-summoned: "&fSummoned to &6{0} &fby &6{1}"
+    player-not-online: "&6{0} &fis not online."
+    callback: "&aAttempting to send {0} players to {1}"
+    not-on-server: "&cError: You are not on server."
+  hub:
+    enabled: false
+    servers:
+      - "hub-1"
+      - "hub-2"
+    #Set to "" to disable.
+    you-got-moved: "&aYou have been moved to a hub!"
+    disabled-server: "&cYou cannot use this command here."
+    disabled-servers:
+      - "foo"
+      - "bar"
+    aliases:
+      - "hub"
+      - "lobby"
+tools:
+  #Hides the Legacy Ping message.
+  disable-legacy-ping: true
+  #Hides the "... provided invalid protocol ..." message. Helps with some types of attacks. (https://media.discordapp.net/attachments/868930650537857024/921383075454259300/unknown.png)
+  disable-invalid-protocol: true
+  protocol-blocker:
+    block-join: false
+    block-ping: false
+    #If true, all protocols except those listed below will be blocked.
+    whitelist: false
+    #You can set either a protocol number here (e.g. '340' for 1.12.2) or a Minecraft version below (e.g. '1.12.2')
+    #You can find a list of protocols here: https://wiki.vg/Protocol_version_numbers
+    protocols:
+      - 9999
+      - 9998
+    #List of versions:
+    #1.7.2, 1.7.6, 1.8, 1.9, 1.9.1, 1.9.2, 1.9.4, 1.10, 1.11, 1.11.1, 1.12, 1.12.1, 1.12.2,
+    #1.13, 1.13.1, 1.13.2, 1.14, 1.14.1, 1.14.2, 1.14.3, 1.14.4, 1.15, 1.15.1, 1.15.2,
+    #1.16, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.17, 1.17.1, 1.18, 1.18.2, 1.19, 1.19.1, 1.19.3, 1.19.4,
+    #1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, LATEST
+    versions:
+      - "LATEST"
+    minimum-version: "1.20"
+    maximum-version: "LATEST"
+    #For "block-ping" option.
+    brand: "Version is not supported!"
+    #For "block-ping", set to "" to disable.
+    motd: "&cVersion is not supported!{NL}&ePlease, join with Minecraft 1.12.2 or newer."
+    #For "block-joining" option.
+    kick-reason: "&cYour version is unsupported!"
+  brand-changer:
+    rewrite-in-ping: true
+    rewrite-in-game: true
+    ping-brand: "NDSMC 1.20.4"
+    #For ping.
+    show-always: false
+    #{0} - Original server brand (e.g. Paper).
+    in-game-brand: "NDSMC 1.20.4"
+  #Doesn't work with srv records.
+  hostnames-manager:
+    block-join: false
+    block-ping: false
+    #Connections IP logging.
+    debug: false
+    #For "debug" option.
+    show-blocked-only: false
+    #For "block-joining" option, set to "" to show the default reason.
+    kick-reason: "&cPlease, don't connect to the direct ip!{NL}Use play.ndsmc.ru"
+    whitelist: true
+    #IP Addresses starting with "127." or equal to "localhost" will be blocked.
+    block-local-addresses: false
+    #DoMaIn.net will be similar to domain.net.
+    ignore-case: true
+    hostnames:
+      - "play.ndsmc.ru"
+    #List of IP addresses that will bypass this check.
+    ignored-ips:
+      - "79.555.*"
+      - "228.1337.*"

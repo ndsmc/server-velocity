@@ -1,0 +1,11 @@
+{
+  "playerListMode": "REPLACE",
+  "serverListEntryFormat": "%1$s",
+  "maxListEntries": 16,
+  "replaceOnlinePlayerCount": false,
+  "replaceMaxPlayerCount": false,
+  "fillMissingVersionInfo": false,
+  "replaceVersionInfo": false,
+  "versionProtocol": 4,
+  "versionName": "NDSMC 1.20.4"
+}

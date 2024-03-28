@@ -1,0 +1,7 @@
+.vscode
+logs
+libraries
+*.gz
+*.old
+config/emotecraft_emote_map.json
+.mc-velocity.*.env

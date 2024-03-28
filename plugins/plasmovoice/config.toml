@@ -1,0 +1,11 @@
+default_language = "ru_ru"
+debug = false
+disable_crowdin = false
+check_for_updates = false
+
+[servers]
+private = "vs1.lan-wg.ndsmc.ru:25572"
+
+[host]
+ip = "0.0.0.0"
+port = 25540

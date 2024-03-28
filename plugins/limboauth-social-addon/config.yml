@@ -1,0 +1,181 @@
+version: "1.0.11-SNAPSHOT"
+# Available serializers:
+# LEGACY_AMPERSAND - "&c&lExample &c&9Text".
+# LEGACY_SECTION - "§c§lExample §c§9Text".
+# MINIMESSAGE - "<bold><red>Example</red> <blue>Text</blue></bold>". (https://webui.adventure.kyori.net/)
+# GSON - "[{"text":"Example","bold":true,"color":"red"},{"text":" ","bold":true},{"text":"Text","bold":true,"color":"blue"}]". (https://minecraft.tools/en/json_text.php/)
+# GSON_COLOR_DOWNSAMPLING - Same as GSON, but uses downsampling.
+serializer: LEGACY_AMPERSAND
+prefix: "LimboAuth &6>>&f"
+
+main:
+  social-register-cmds:
+    - "!account register"
+  social-link-cmds:
+    - "!account link"
+  force-keyboard-cmds:
+    - "!keyboard"
+  code-lower-bound: 1000000
+  code-upper-bound: 10000000
+  linkage-main-cmd: "addsocial"
+  linkage-alias-cmd:
+    - "addvk"
+    - "addtg"
+    - "addds"
+  force-unlink-main-cmd: "forcesocialunlink"
+  force-unlink-alias-cmd:
+    - "forceunlink"
+  # Should we allow registration with premium usernames using social-register-cmds
+  allow-premium-names-registration: true
+  enable-notify: true
+  # Will the unlink button unregister all socials at once?
+  unlink-btn-all: false
+  # Disable unlinking?
+  disable-unlink: false
+  # Disable commands like !account link <username>
+  disable-link-without-password: false
+  # Disable commands like !account link <username> <password>
+  disable-link-with-password: true
+  # Default buttons state
+  default-blocked: false
+  default-totp-enabled: false
+  default-notify-enabled: false
+  # Allow linking social to the player, who already has linked this type of social
+  allow-account-relink: true
+  after-linkage-commands:
+    - "test {NICKNAME} has linked a social account"
+  after-unlinkage-commands: []
+  start-messages:
+    - "/start"
+    - "Начать"
+  start-reply: "Send '!account link <nickname>' to link your account"
+  # Addon will print all exceptions if this parameter is set to true.
+  debug: false
+  # Prohibit premium users from changing their password via the restore button.
+  prohibit-premium-restore: false
+  # NO | YES - with the option disabled
+  # YES | NO - with the option enabled
+  reverse-yes-no-buttons: false
+  # false - players with social 2FA enabled should enter the password
+  # true - players with social 2FA enabled can login without the password
+  auth-2fa-without-password: false
+  # How long in milliseconds the player should wait before registering new account
+  purge-registration-cache-millis: 86400000
+  # How many accounts can register the player per time (per purge-registration-cache-millis)
+  max-registration-count-per-time: 3
+  vk:
+    enabled: false
+    token: "1234567890"
+  discord:
+    enabled: true
+    token: "MTIxMDE3NzA4OTE5NDU2NTY0Mg.GMT0RZ.oTiHHQfhKlnWDAz-LZ0yNn_nMhaLab7JpSXuC0"
+    # Available: 
+    # addrole <role id>
+    # remrole <role id>
+    # 
+    # Example: 
+    # on-player-added: 
+    #  - addrole 12345678
+    # on-player-removed: 
+    #  - remrole 12345678
+    on-player-added: []
+    on-player-removed: []
+    activity-enabled: false
+    # Available values: PLAYING, STREAMING, LISTENING, WATCHING, COMPETING
+    activity-type: PLAYING
+    # Activity URL. Supported only with activity-type: STREAMING
+    activity-url: "null"
+    activity-name: "LimboAuth Social Addon"
+    # Which role ids a player must have on the Discord server to use the bot
+    # 
+    # Example: 
+    # required-roles: 
+    #  - 1234567890
+    required-roles: []
+    # It's better to keep this option enabled if you have set required-roles config option
+    # Requires SERVER MEMBERS INTENT to be enabled in the bot settings on the Discord Developer Portal
+    guild-member-cache-enabled: true
+    no-roles-message: "You don't have permission to use commands"
+  telegram:
+    enabled: false
+    token: "1234567890"
+  # GeoIP is an offline database providing approximate IP address locations
+  # In the SocialAddon's case, the IP location is displayed in notifications and alerts
+  geoip:
+    enabled: false
+    # Available placeholders: {CITY}, {COUNTRY}, {LEAST_SPECIFIC_SUBDIVISION}, {MOST_SPECIFIC_SUBDIVISION}
+    format: "{CITY}, {COUNTRY}"
+    # ISO 639-1
+    locale: "en"
+    # MaxMind license key
+    # Regenerate if triggers an error
+    license-key: "P5g0fVdAQIq8yQau"
+    # The interval at which the database will be updated, in milliseconds
+    # Default value: 14 days
+    update-interval: 1209600000
+    default-value: "Unknown"
+    # It is not necessary to change {LICENSE_KEY}
+    mmdb-city-download: "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key={LICENSE_KEY}&suffix=tar.gz"
+    mmdb-country-download: "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key={LICENSE_KEY}&suffix=tar.gz"
+  strings:
+    link-cmd-usage: "{PRFX} Отправьте '!account link {NICKNAME}' нашему Социальному Боту{NL} VK: vk.com/123{NL} DS: Bot#0000{NL} TG: @bot"
+    link-wrong-code: "{PRFX} Неверный код, запустите '!account link {NICKNAME}' снова"
+    link-success-game: "{PRFX} Социальная сеть была успешно привязана"
+    link-success: "✅ Социальная сеть была успешно привязана{NL}Используйте '!keyboard' чтобы показать клавиатуру"
+    link-already: "Аккаунт уже привязан"
+    link-social-register-cmd-usage: "Вы не указали никнейм. Введите '!account register <никнейм>'"
+    link-social-cmd-usage: "Вы не указали никнейм. Введите '!account link <никнейм>'"
+    link-unknown-account: "Аккаунта с таким никнеймом не существует"
+    link-code: "🔑 Введите '/addsocial {CODE}' в игре, чтобы завершить привязку аккаунта"
+    link-wrong-password: "Неверный пароль"
+    register-incorrect-nickname: "Аккаунта с таким никнеймом не существует"
+    register-taken-nickname: "Этот никнейм уже занят"
+    register-premium-nickname: "Этот никнейм принадлежит премиум игроку"
+    register-limit: "Вы пытались зарегистрироваться много раз!"
+    register-success: "✅ Аккаунт был успешно зарегистрирован{NL}Ваш пароль: {PASSWORD}{NL}Используйте '!keyboard' чтобы показать клавиатуру"
+    force-unlink-cmd-usage: "{PRFX} Использование: /forcesocialunregister <имя пользователя>"
+    notify-leave: "➖ Вы покинули сервер"
+    notify-join: "➕ Вы присоединились к серверу {NL}🌐 IP: {IP} {LOCATION}{NL}Вы можете заблокировать свой аккаунт, если это не вы"
+    notify-ask-kick-message: "{PRFX} Вы были кикнуты Социальным ботом"
+    notify-ask-validate: "❔ Кто-то пытается присоединиться к серверу.{NL}🌐 IP: {IP} {LOCATION}{NL}Это вы?"
+    notify-ask-validate-game: "{PRFX} У вас включена 2FA, проверьте вашу социальную сеть и подтвердите вход!"
+    notify-ask-yes: "Это я"
+    notify-ask-no: "Это не я"
+    notify-thanks: "Спасибо за подтверждение вашего входа"
+    notify-warn: "Вы всегда можете изменить свой пароль, используя кнопку 'Восстановить'"
+    block-toggle-btn: "Переключить блокировку"
+    block-kick-message: "{PRFX} Ваш аккаунт был заблокирован Социальным ботом"
+    block-success: "Аккаунт {NICKNAME} был успешно заблокирован"
+    unblock-success: "Аккаунт {NICKNAME} был успешно разблокирован"
+    totp-enable-success: "Аккаунт {NICKNAME} теперь использует 2FA"
+    totp-disable-success: "Аккаунт {NICKNAME} больше не использует 2FA"
+    notify-enable-success: "Аккаунт {NICKNAME} теперь получает уведомления"
+    notify-disable-success: "Аккаунт {NICKNAME} больше не получает уведомления"
+    kick-is-offline: "Невозможно кикнуть игрока - игрок не в сети"
+    kick-success: "Игрок {NICKNAME} был успешно кикнут"
+    kick-game-message: "{PRFX} Вы были кикнуты Социальным ботом"
+    restore-btn: "Восстановить"
+    restore-msg: "Новый пароль для {NICKNAME} это: {PASSWORD}"
+    restore-msg-premium: "Мы не можем изменить ваш пароль, {NICKNAME}, возможно, вы премиум игрок."
+    info-btn: "Информация"
+    info-msg: "👤 IGN: {NICKNAME}{NL}🌍 Текущий статус: {SERVER}{NL}🌐 IP: {IP} {LOCATION}{NL}⏰ Уведомления: {NOTIFY_STATUS}{NL}❌ Заблокирован: {BLOCK_STATUS}{NL}🔑 2FA: {TOTP_STATUS}"
+    status-offline: "ОФФЛАЙН"
+    notify-enabled: "Включено"
+    notify-disabled: "Отключено"
+    block-enabled: "Да"
+    block-disabled: "Нет"
+    totp-enabled: "Включено"
+    totp-disabled: "Отключено"
+    kick-btn: "Кикнуть"
+    toggle-notification-btn: "Переключить уведомления"
+    toggle-2fa-btn: "Переключить 2FA"
+    unlink-btn: "Отвязать социальную сеть"
+    unlink-disabled: "Отвязка отключена"
+    unlink-success: "Отвязка успешна"
+    unlink-success-game: "{PRFX} Отвязка успешна"
+    unlink-block-conflict: "Вы не можете отвязать социальную сеть, пока ваш аккаунт заблокирован. Сначала разблокируйте его"
+    unlink-2fa-conflict: "Вы не можете отвязать социальную сеть, пока включена 2FA. Сначала отключите ее"
+    keyboard-restored: "Клавиатура восстановлена"
+    # This message will be sent to the players without social-link right after their login
+    link-announcement: "{PRFX} Привет! Мы рекомендуем вам привязать социальную сеть, используя команду /addsocial, чтобы защитить ваш аккаунт"
+    social-exception-caught: "При обработке вашего запроса произошло исключение"

@@ -1,0 +1,441 @@
+version: "1.0.5"
+# Available serializers:
+# LEGACY_AMPERSAND - "&c&lExample &c&9Text".
+# LEGACY_SECTION - "§c§lExample §c§9Text".
+# MINIMESSAGE - "<bold><red>Example</red> <blue>Text</blue></bold>". (https://webui.adventure.kyori.net/)
+# GSON - "[{"text":"Example","bold":true,"color":"red"},{"text":" ","bold":true},{"text":"Text","bold":true,"color":"blue"}]". (https://minecraft.tools/en/json_text.php/)
+# GSON_COLOR_DOWNSAMPLING - Same as GSON, but uses downsampling.
+serializer: LEGACY_AMPERSAND
+
+main:
+  # World file type:
+  #  SCHEMATIC (MCEdit .schematic, 1.12.2 and lower, not recommended)
+  #  STRUCTURE (structure block .nbt, any Minecraft version is supported, but the latest one is recommended).
+  #  WORLDEDIT_SCHEM (WorldEdit .schem, any Minecraft version is supported, but the latest one is recommended).
+  world-file-type: STRUCTURE
+  world-file-path: "world.nbt"
+  # World time in ticks (24000 ticks == 1 in-game day)
+  world-ticks: 1000
+  # World light level (from 0 to 15)
+  world-light-level: 15
+  # Should we override block light level (to light up the nether and the end)
+  world-override-block-light-level: true
+  # Available: ADVENTURE, CREATIVE, SURVIVAL, SPECTATOR
+  game-mode: ADVENTURE
+  # Available dimensions: OVERWORLD, NETHER, THE_END
+  dimension: OVERWORLD
+  max-suppress-packet-length: 65536
+  hub-command:
+    require-permission: false
+    aliases:
+      - "hub"
+      - "lobby"
+  # Message that will be sent when player joins the hub.
+  welcome-message:
+    - "&7Type /menu to open menu."
+  # Title that will be displayed when player joins the hub.
+  welcome-title: ""
+  welcome-subtitle: ""
+  welcome-title-fade-in-millis: 100
+  welcome-title-stay-millis: 2000
+  welcome-title-fade-out-millis: 100
+  # Player will teleported back to the spawn position if it falls below the `y-limit` when enabled.
+  enable-y-limit: true
+  y-limit: -10
+  # Try increasing this value if NPC skins are not loading.
+  skin-load-seconds: 3
+  world-coords:
+    x: 0
+    y: 0
+    z: 0
+  player-coords:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    yaw: 90.0
+    pitch: 0.0
+  # Menu that will be opened when player joins the hub.
+  # Set to blank value (default-menu: "") to disable.
+  default-menu: ""
+
+  # List of boss bars that will be set for the player in the specified order. Set to empty list (bossbars: []) to disable.
+  bossbars:
+    - # Hides boss bar
+      hidden: false
+      name: "BossBar 1"
+      progress: 1.0
+      color: PINK
+      overlay: PROGRESS
+      # Set -1 to mark this boss bar as the last one. (Next boss bar won't be displayed)
+      stay-time-millis: 5000
+    - # Hides boss bar
+      hidden: false
+      name: "BossBar 2"
+      progress: 0.5
+      color: RED
+      overlay: PROGRESS
+      # Set -1 to mark this boss bar as the last one. (Next boss bar won't be displayed)
+      stay-time-millis: 5000
+    - # Hides boss bar
+      hidden: false
+      name: "BossBar 3"
+      progress: 0.0
+      color: BLUE
+      overlay: PROGRESS
+      # Set -1 to mark this boss bar as the last one. (Next boss bar won't be displayed)
+      stay-time-millis: 5000
+    - # Hides boss bar
+      hidden: true
+      name: ""
+      progress: 0.0
+      color: PINK
+      overlay: PROGRESS
+      # Set -1 to mark this boss bar as the last one. (Next boss bar won't be displayed)
+      stay-time-millis: 5000
+
+  sidebar:
+    enabled: true
+    title: "This is a sidebar."
+    lines:
+      - "&7Configure me in config.yml."
+
+  # Commands that will be available in the hub.
+  commands:
+    - command: "menu"
+      aliases:
+        - "servers"
+      # Action to perform when the command is executed.
+      action:
+        # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+        type: OPEN_MENU
+        # Depends on action type:
+        # DO_NOTHING: Not used.
+        # CLOSE_MENU: Not used.
+        # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+        # OPEN_MENU: Menu ID
+        # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+        # KICK_PLAYER: Kick reason
+        # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+        data: "menu"
+    - command: "server1"
+      aliases: []
+      # Action to perform when the command is executed.
+      action:
+        # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+        type: CONNECT_TO_SERVER
+        # Depends on action type:
+        # DO_NOTHING: Not used.
+        # CLOSE_MENU: Not used.
+        # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+        # OPEN_MENU: Menu ID
+        # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+        # KICK_PLAYER: Kick reason
+        # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+        data: "server1"
+
+  menus:
+    - # Menu ID that will be used in OPEN_MENU actions.
+      menu-id: "menu"
+      title: "Menu"
+      # Items that will be used in `menu-contents`.
+      items:
+        - # Any character that will represent this item in `menu-contents`.
+          id: "."
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:black_stained_glass_pane"
+          fallback-items:
+            - "minecraft:white_stained_glass_pane"
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 15
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: ""
+          lore: []
+        - # Any character that will represent this item in `menu-contents`.
+          id: "1"
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:leather_helmet"
+          fallback-items: []
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 0
+          has-color: true
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 12544467
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: "&fOpen another menu"
+          lore: []
+        - # Any character that will represent this item in `menu-contents`.
+          id: "2"
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:stone"
+          fallback-items: []
+          count: 2
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 0
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: true
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: "&fServer1"
+          lore:
+            - "&r&7This is a server."
+        - # Any character that will represent this item in `menu-contents`.
+          id: "3"
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:player_head"
+          fallback-items:
+            - "minecraft:experience_bottle"
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 0
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjcwNWZkOTRhMGM0MzE5MjdmYjRlNjM5YjBmY2ZiNDk3MTdlNDEyMjg1YTAyYjQzOWUwMTEyZGEyMmIyZTJlYyJ9fX0="
+          custom-name: "&fWhat is this?"
+          lore: []
+      # Menu content. The size of the menu depends on the length and number of lines.
+      # For example, 6 lines of 9 characters each represent a 9x6 menu.
+      # Each character represents an item (see `item-id`); space is an empty slot.
+      menu-contents:
+        - "........."
+        - "...123..."
+        - "........."
+      # The default action to be performed when player clicks on slot.
+      # Available values: DO_NOTHING, CLOSE_MENU.
+      default-action: DO_NOTHING
+      actions:
+        - # List of slots in one of the following formats: "slotNumber", "column,row".
+          slots:
+            - "3,1"
+          # Action to perform when player clicks on specified slots.
+          action:
+            # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+            type: OPEN_MENU
+            # Depends on action type:
+            # DO_NOTHING: Not used.
+            # CLOSE_MENU: Not used.
+            # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+            # OPEN_MENU: Menu ID
+            # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+            # KICK_PLAYER: Kick reason
+            # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+            data: "menu2"
+        - # List of slots in one of the following formats: "slotNumber", "column,row".
+          slots:
+            - "4,1"
+          # Action to perform when player clicks on specified slots.
+          action:
+            # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+            type: CONNECT_TO_SERVER
+            # Depends on action type:
+            # DO_NOTHING: Not used.
+            # CLOSE_MENU: Not used.
+            # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+            # OPEN_MENU: Menu ID
+            # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+            # KICK_PLAYER: Kick reason
+            # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+            data: "server1"
+        - # List of slots in one of the following formats: "slotNumber", "column,row".
+          slots:
+            - "5,1"
+          # Action to perform when player clicks on specified slots.
+          action:
+            # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+            type: SEND_MESSAGE
+            # Depends on action type:
+            # DO_NOTHING: Not used.
+            # CLOSE_MENU: Not used.
+            # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+            # OPEN_MENU: Menu ID
+            # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+            # KICK_PLAYER: Kick reason
+            # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+            data: "&7This is a virtual hub!"
+    - # Menu ID that will be used in OPEN_MENU actions.
+      menu-id: "menu2"
+      title: "Another Menu"
+      # Items that will be used in `menu-contents`.
+      items:
+        - # Any character that will represent this item in `menu-contents`.
+          id: "."
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:black_stained_glass_pane"
+          fallback-items:
+            - "minecraft:white_stained_glass_pane"
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 15
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: ""
+          lore: []
+        - # Any character that will represent this item in `menu-contents`.
+          id: "1"
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:barrier"
+          fallback-items: []
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 0
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: "&fClose menu"
+          lore: []
+        - # Any character that will represent this item in `menu-contents`.
+          id: "2"
+          # Modern item ID, e.g. "minecraft:stone".
+          item: "minecraft:bedrock"
+          fallback-items: []
+          count: 1
+          # Only used on legacy versions (1.12.2 and lower).
+          data: 0
+          has-color: false
+          # You can get color value at https://notwoods.github.io/minecraft-tools/armorcolor/.
+          color: 0
+          enchanted: false
+          # Player skin value.
+          # You can get this value at https://mineskin.org/ or https://minecraft-heads.com/.
+          skull-owner: ""
+          custom-name: "&fGo back"
+          lore: []
+      # Menu content. The size of the menu depends on the length and number of lines.
+      # For example, 6 lines of 9 characters each represent a 9x6 menu.
+      # Each character represents an item (see `item-id`); space is an empty slot.
+      menu-contents:
+        - "........."
+        - ".       ."
+        - ".  1 2  ."
+        - ".       ."
+        - "........."
+      # The default action to be performed when player clicks on slot.
+      # Available values: DO_NOTHING, CLOSE_MENU.
+      default-action: DO_NOTHING
+      actions:
+        - # List of slots in one of the following formats: "slotNumber", "column,row".
+          slots:
+            - "3,2"
+          # Action to perform when player clicks on specified slots.
+          action:
+            # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+            type: CLOSE_MENU
+            # Depends on action type:
+            # DO_NOTHING: Not used.
+            # CLOSE_MENU: Not used.
+            # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+            # OPEN_MENU: Menu ID
+            # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+            # KICK_PLAYER: Kick reason
+            # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+            data: ""
+        - # List of slots in one of the following formats: "slotNumber", "column,row".
+          slots:
+            - "5,2"
+          # Action to perform when player clicks on specified slots.
+          action:
+            # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+            type: OPEN_MENU
+            # Depends on action type:
+            # DO_NOTHING: Not used.
+            # CLOSE_MENU: Not used.
+            # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+            # OPEN_MENU: Menu ID
+            # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+            # KICK_PLAYER: Kick reason
+            # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+            data: "menu"
+
+  npcs:
+    - display-name: "&7Click to open menu"
+      x: 0.0
+      y: 0.0
+      z: 5.0
+      yaw: 270.0
+      pitch: 0.0
+      load-skin: true
+      # You can get skin properties at https://mineskin.org/.
+      skin-data:
+        uuid: "09469aaa-422e-4717-a73f-bd530dbd6c7e"
+        value: "ewogICJ0aW1lc3RhbXAiIDogMTY1NDMzNjk2MDgzNiwKICAicHJvZmlsZUlkIiA6ICIyZDlhNWExYjIzZWQ0MWRkYjgzMWMzZjM3Zjk2NzA3ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJBd2Vzb21lS2FsaW41NSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9jOGJjZTJmMWExY2QyNWZiYTU2MWU3NjI2ODYxYmYwMzA1OGY5MGI1OTNhY2MwODE2ZWZlNGZmZGY0ZGUwNmE0IgogICAgfQogIH0KfQ=="
+        signature: "PsdiXxQldurw+qrNHyXRkAhPpcLeY/c8hTW7lr8S1kGFE2P4OLuQZbnjzKxLCCcudhBBDgjU/3hJNXgC1Spnz4ywT1+RVCJ/F4SQFh39Y8mQQra1dz4jM0mvTfyCttTLY/sP+g91HCirYfmS6xXcmaFW9aGhFJasJ5xwXQ9Ez9mdVgajeBDh7DxPv4dKkyQsE13XD8Z4ipgRUsDflLIF2oDF8jLSgTpnlukJdlFmJIBPcO+g8S5K1V4UVxeZFRykuu1Hqv9g0BU56A2uKYGF7xKL9xUMsvRoRl0NbdJgWtuJRmt8ybMdD+KKhIQ2TNO/7hNKkZV8t5vWXPbLRS/8Q1KtINwVtJyha1SZ0jTxbrGrFmD2VxzNJMI2KcFBINS66+zVopgAV79xIiqQEa3x7PsCPUOGbNZO8oc5DmFstiBo/ypyZERZnwAvkrxag97Q7wPQrXkEmiYQWp4d5CWg8yfg0h3PJGUT58hcw9poaLSXS9lpA4Zp1nv+BWx8U32rczTqaEKCaW3p2b9mRmEYTcGl7+GsCsbLDuBDiU/JNVEUu8bhzVDKBNGaIHR2nVWoqZG0nReMx7b11j53T3ubAj3ATLuYIyRBqysNeztACo98ynMBVLn7gXaYDhfxqtWYxvLkrYpk/JvPOwoDX2gUUFGf3i+oQbJHW6YR5brqrCw="
+        # (255 - all skin parts)
+        # Sum of the following numbers:
+        # Cape - 1
+        # Jacket - 2
+        # Left Sleeve - 4
+        # Right Sleeve -  8
+        # Left Leg - 16
+        # Right Leg - 32
+        # Hat - 64
+        displayed-skin-parts: 255
+      # Cooldown in milliseconds.
+      cooldown: 1000
+      # Action to be performed when player clicks on NPC.
+      action:
+        # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+        type: OPEN_MENU
+        # Depends on action type:
+        # DO_NOTHING: Not used.
+        # CLOSE_MENU: Not used.
+        # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+        # OPEN_MENU: Menu ID
+        # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+        # KICK_PLAYER: Kick reason
+        # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+        data: "menu"
+
+  holograms:
+    - x: 5.0
+      y: 1.0
+      z: 5.0
+      lines:
+        - "&fThis"
+        - "&7is a"
+        - "&8hologram."
+
+  portals:
+    - start-x: 10
+      start-y: 0
+      start-z: 10
+      end-x: 20
+      end-y: 1
+      end-z: 20
+      action:
+        # Available values: DO_NOTHING, CLOSE_MENU, SEND_MESSAGE, OPEN_MENU, CONNECT_TO_SERVER, KICK_PLAYER, TELEPORT_PLAYER
+        type: CONNECT_TO_SERVER
+        # Depends on action type:
+        # DO_NOTHING: Not used.
+        # CLOSE_MENU: Not used.
+        # SEND_MESSAGE: Message to send, lines should be separated with {NL}.
+        # OPEN_MENU: Menu ID
+        # CONNECT_TO_SERVER: Server name (as in velocity.toml).
+        # KICK_PLAYER: Kick reason
+        # TELEPORT_PLAYER: Coordinates in "x y z yaw pitch" format.
+        data: "server1"

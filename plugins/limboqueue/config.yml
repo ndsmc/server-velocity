@@ -1,0 +1,16 @@
+
+main:
+  # Serializers: LEGACY_AMPERSAND, LEGACY_SECTION, MINIMESSAGE
+  serializer: "MINIMESSAGE"
+  server: "private"
+  # Server checking interval in seconds
+  check-interval: 2
+  world:
+    # Dimensions: OVERWORLD, NETHER, THE_END
+    dimension: "OVERWORLD"
+
+messages:
+  queue-message: "Ваша позиция в очереди: {0}"
+  server-offline: "<red>Сервер не в сети."
+  reload: "<green>LimboQueue перезагружен!"
+  reload-failed: "<red>Перезагрузка не удалась!"
