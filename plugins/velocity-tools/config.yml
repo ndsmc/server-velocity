@@ -84,9 +84,9 @@ tools:
     #1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, LATEST
     versions:
       - "1.20.3"
-      - "1.20.4"
+      - "LATEST"
     minimum-version: "1.20.3"
-    maximum-version: "1.20.4"
+    maximum-version: "LATEST"
     #For "block-ping" option.
     brand: "Версия не поддерживается!"
     #For "block-ping", set to "" to disable.
@@ -100,7 +100,7 @@ tools:
     #For ping.
     show-always: false
     #{0} - Original server brand (e.g. Paper).
-    in-game-brand: "НДС - 1 сезон - 1.20.4 (Velocity v1.20.4-1.1.0 -> {0})"
+    in-game-brand: "НДС - 1 сезон - 1.20.4 (Velocity v1.20.4-1.1.1 > {0})"
   #Doesn't work with srv records.
   hostnames-manager:
     block-join: false
