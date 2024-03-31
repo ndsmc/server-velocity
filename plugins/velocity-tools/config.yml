@@ -69,38 +69,38 @@ tools:
   #Hides the "... provided invalid protocol ..." message. Helps with some types of attacks. (https://media.discordapp.net/attachments/868930650537857024/921383075454259300/unknown.png)
   disable-invalid-protocol: true
   protocol-blocker:
-    block-join: false
+    block-join: true
     block-ping: false
     #If true, all protocols except those listed below will be blocked.
-    whitelist: false
+    whitelist: true
     #You can set either a protocol number here (e.g. '340' for 1.12.2) or a Minecraft version below (e.g. '1.12.2')
     #You can find a list of protocols here: https://wiki.vg/Protocol_version_numbers
     protocols:
-      - 9999
-      - 9998
+      - 765
     #List of versions:
     #1.7.2, 1.7.6, 1.8, 1.9, 1.9.1, 1.9.2, 1.9.4, 1.10, 1.11, 1.11.1, 1.12, 1.12.1, 1.12.2,
     #1.13, 1.13.1, 1.13.2, 1.14, 1.14.1, 1.14.2, 1.14.3, 1.14.4, 1.15, 1.15.1, 1.15.2,
     #1.16, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.17, 1.17.1, 1.18, 1.18.2, 1.19, 1.19.1, 1.19.3, 1.19.4,
     #1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, LATEST
     versions:
-      - "LATEST"
-    minimum-version: "1.20"
-    maximum-version: "LATEST"
+      - "1.20.3"
+      - "1.20.4"
+    minimum-version: "1.20.3"
+    maximum-version: "1.20.4"
     #For "block-ping" option.
-    brand: "Version is not supported!"
+    brand: "Версия не поддерживается!"
     #For "block-ping", set to "" to disable.
-    motd: "&cVersion is not supported!{NL}&ePlease, join with Minecraft 1.12.2 or newer."
+    motd: "&cВерсия не поддерживается!{NL}&eПожалуйста, присоединяйтесь к Minecraft 1.20.4."
     #For "block-joining" option.
-    kick-reason: "&cYour version is unsupported!"
+    kick-reason: "&cВаша версия не поддерживается!"
   brand-changer:
     rewrite-in-ping: true
     rewrite-in-game: true
-    ping-brand: "NDSMC 1.20.4"
+    ping-brand: "НДС - 1 сезон - 1.20.4"
     #For ping.
     show-always: false
     #{0} - Original server brand (e.g. Paper).
-    in-game-brand: "NDSMC 1.20.4"
+    in-game-brand: "НДС - 1 сезон - 1.20.4 (Velocity v1.20.4-1.1.0 -> {0})"
   #Doesn't work with srv records.
   hostnames-manager:
     block-join: false

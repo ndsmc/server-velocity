@@ -54,12 +54,12 @@ messages:
 # [!] Make sure to fill in database.connectionOptions if you're using certificate / ssl authentication. [!]
 # [!] If you're not using ssl, change sslMode=trust to sslMode=disable [!]
 database:
-    ${mc-plugins-skinsrestorer-config-database-enabled}
-    ${mc-plugins-skinsrestorer-config-database-host}
-    ${mc-plugins-skinsrestorer-config-database-port}
-    ${mc-plugins-skinsrestorer-config-database-database}
-    ${mc-plugins-skinsrestorer-config-database-username}
-    ${mc-plugins-skinsrestorer-config-database-password}
+    enabled: false # .mc-velocity.env
+    host: 'localhost' # .mc-velocity.env
+    port: 5432 # .mc-velocity.env
+    database: 'skinsrestorer' # .mc-velocity.env
+    username: 'root' # .mc-velocity.env
+    password: 'password' # .mc-velocity.env
     maxPoolSize: 10
     tablePrefix: sr_
     connectionOptions: sslMode=false&serverTimezone=UTC
@@ -80,12 +80,12 @@ commands:
     # Players cooldown in seconds when changing skins (set to 0 to disable).
     # SkinErrorCooldown is used when an error or invalid url occurs.
     # Can be bypassed with 'skinsrestorer.bypasscooldown'.
-    skinChangeCooldown: 30
+    skinChangeCooldown: 5
     skinErrorCooldown: 5
     # When enabled, only websites from the list below is allowed to be set using /skin url <url>
     # [?] this is useful if you host your own image server.
     restrictSkinUrls:
-        enabled: true
+        enabled: false
         list: 
         - https://i.imgur.com
         - http://i.imgur.com
@@ -137,7 +137,7 @@ commands:
 # This setting will allow custom skins to be shown in the GUI.
 # customGUI.showOnlyCustomGUI will allow only custom skins from customGUI.list to show up in the GUI.
 customGUI:
-    enabled: true
+    enabled: false
     showOnlyCustomGUI: false
     list: 
     - xknat
@@ -266,7 +266,7 @@ advanced:
 # Enable these on the dev's request
 dev:
     # Enable to start receiving debug messages about api requests & more.
-    ${mc-plugins-skinsrestorer-config-dev-debug}
+    debug: true # .mc-velocity.env
 
 # End #
 

@@ -26,5 +26,6 @@ groups:
     - clientcatcher
   default:
     commands:
+    - skin
     - destroysession
     - changepassword
