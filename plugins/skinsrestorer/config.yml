@@ -54,12 +54,12 @@ messages:
 # [!] Make sure to fill in database.connectionOptions if you're using certificate / ssl authentication. [!]
 # [!] If you're not using ssl, change sslMode=trust to sslMode=disable [!]
 database:
-    enabled: false # .mc-velocity.env
-    host: 'localhost' # .mc-velocity.env
-    port: 5432 # .mc-velocity.env
-    database: 'skinsrestorer' # .mc-velocity.env
-    username: 'root' # .mc-velocity.env
-    password: 'password' # .mc-velocity.env
+    ${mc-plugins-skinsrestorer-config-database-enabled}
+    ${mc-plugins-skinsrestorer-config-database-host}
+    ${mc-plugins-skinsrestorer-config-database-port}
+    ${mc-plugins-skinsrestorer-config-database-database}
+    ${mc-plugins-skinsrestorer-config-database-username}
+    ${mc-plugins-skinsrestorer-config-database-password}
     maxPoolSize: 10
     tablePrefix: sr_
     connectionOptions: sslMode=false&serverTimezone=UTC
@@ -266,7 +266,7 @@ advanced:
 # Enable these on the dev's request
 dev:
     # Enable to start receiving debug messages about api requests & more.
-    debug: true # .mc-velocity.env
+    ${mc-plugins-skinsrestorer-config-dev-debug}
 
 # End #
 
