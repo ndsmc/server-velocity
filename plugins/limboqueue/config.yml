@@ -7,7 +7,7 @@ main:
   check-interval: 2
   world:
     # Dimensions: OVERWORLD, NETHER, THE_END
-    dimension: "OVERWORLD"
+    dimension: "THE_END"
 
 messages:
   queue-message: "Ваша позиция в очереди: {0}"

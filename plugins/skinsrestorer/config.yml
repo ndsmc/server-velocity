@@ -217,6 +217,11 @@ api:
     # Key can be requested from https://mineskin.org/apikey
     # [?] A key is not required, but recommended.
     mineskinAPIKey: key
+    # This option disables the use of api.ashcon.app
+    # It is recommended to keep this enabled, as it is used for fetching and caching skins.
+    # You may hit Mojang ratelimits if you disable this, as it will fall back to Mojang and then MineTools
+    # Both of which are not sufficient for servers with many players.
+    disableAshcon: false
 
 ###############
 # Danger Zone #
@@ -271,20 +276,18 @@ dev:
 # End #
 
 # Useful tools:
-# Vectier Thailand has made some super cool "Custom Skin" tools that you can use!
 # 
 # SkinFile Generator:
 # With SkinFile Generator, you can upload your own custom skin to get a unique .skin file that you can put in your skins folder, to use with SkinsRestorer.
-# Check it out here: https://skinsrestorer.github.io/SkinFile-Generator/
+# Check it out here: https://generator.skinsrestorer.net
 # 
 # SkinSystem :
-# With SkinSystem, you, as a server owner, can connect AuthMe (and forum) with the SkinSystem website that you can host, to give your players the ability to upload custom skins.
+# With SkinSystem, you, as a server owner, can connect AuthMe with the SkinSystem website that you can host, to give your players the ability to upload custom skins.
 # Check it out here: https://github.com/SkinsRestorer/SkinSystem
 # 
 # Useful Links #
-# Website: https://skinsrestorer.net/
-# Download: https://github.com/SkinsRestorer/SkinsRestorerX/releases
-# Wiki https://github.com/SkinsRestorer/SkinsRestorerX/wiki/
-# Spigot: https://www.spigotmc.org/resources/skinsrestorer.2124/
-# Github: https://github.com/SkinsRestorer/SkinsRestorerX/
-# Discord: https://discord.me/SkinsRestorer/
+# Website: https://skinsrestorer.net
+# Docs: https://skinsrestorer.net/docs
+# Spigot: https://skinsrestorer.net/spigot
+# Github: https://github.com/SkinsRestorer/SkinsRestorer
+# Discord: https://skinsrestorer.net/discord

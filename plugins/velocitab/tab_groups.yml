@@ -21,5 +21,7 @@ groups:
   sorting_placeholders:
   - '%role_weight%'
   - '%username_lower%'
+  collisions: false
   header_footer_update_rate: 1000
   placeholder_update_rate: 1000
+  only_list_players_in_same_server: false

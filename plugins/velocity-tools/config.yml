@@ -83,9 +83,13 @@ tools:
     #1.16, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.17, 1.17.1, 1.18, 1.18.2, 1.19, 1.19.1, 1.19.3, 1.19.4,
     #1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, LATEST
     versions:
+      - "1.20"
+      - "1.20.1"
+      - "1.20.2"
       - "1.20.3"
+      - "1.20.4"
       - "LATEST"
-    minimum-version: "1.20.3"
+    minimum-version: "1.20"
     maximum-version: "LATEST"
     #For "block-ping" option.
     brand: "Версия не поддерживается!"
@@ -96,11 +100,11 @@ tools:
   brand-changer:
     rewrite-in-ping: true
     rewrite-in-game: true
-    ping-brand: "НДС - 1 сезон - 1.20.4"
+    ping-brand: "НДС - 1 сезон"
     #For ping.
     show-always: false
     #{0} - Original server brand (e.g. Paper).
-    in-game-brand: "НДС - 1 сезон - 1.20.4 (Velocity v1.20.4-1.1.1 > {0})"
+    in-game-brand: "НДС - 1 сезон (Velocity v1.2.0+1.20.4 > {0})"
   #Doesn't work with srv records.
   hostnames-manager:
     block-join: false
