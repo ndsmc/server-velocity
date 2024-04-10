@@ -10,8 +10,8 @@ groups:
   headers:
   - \n\n\ue238\n\n\n
   footers:
-  - '\n<gray>Онлайн: <white>%server_online%<gray>/<white>%server_max_players% <gray>(</gray>%players_online%<gray>/</gray>%max_players_online%<gray>)</gray>\n<white>%player_colored_ping%<gray>ms
-    (<white>%ping%<gray>ms) <reset>%server_tps_1_colored%<gray>tps\n'
+  - '\n<gray>Онлайн: <white>%local_players_online%<gray>(</gray>%players_online%<gray>)\n<gray>Прокси-пинг:
+    <white>%ping%<gray>ms\n'
   format: <reset>%prefix%%username%%suffix%
   nametag:
     prefix: <reset>

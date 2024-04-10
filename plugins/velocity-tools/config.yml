@@ -77,17 +77,14 @@ tools:
     #You can find a list of protocols here: https://wiki.vg/Protocol_version_numbers
     protocols:
       - 765
+      - 764
+      - 763
     #List of versions:
     #1.7.2, 1.7.6, 1.8, 1.9, 1.9.1, 1.9.2, 1.9.4, 1.10, 1.11, 1.11.1, 1.12, 1.12.1, 1.12.2,
     #1.13, 1.13.1, 1.13.2, 1.14, 1.14.1, 1.14.2, 1.14.3, 1.14.4, 1.15, 1.15.1, 1.15.2,
     #1.16, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.17, 1.17.1, 1.18, 1.18.2, 1.19, 1.19.1, 1.19.3, 1.19.4,
     #1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, LATEST
     versions:
-      - "1.20"
-      - "1.20.1"
-      - "1.20.2"
-      - "1.20.3"
-      - "1.20.4"
       - "LATEST"
     minimum-version: "1.20"
     maximum-version: "LATEST"
@@ -104,7 +101,7 @@ tools:
     #For ping.
     show-always: false
     #{0} - Original server brand (e.g. Paper).
-    in-game-brand: "НДС - 1 сезон (Velocity v1.2.0+1.20.4 > {0})"
+    in-game-brand: "НДС - 1 сезон (Velocity v1.3.0+1.20.4 > {0})"
   #Doesn't work with srv records.
   hostnames-manager:
     block-join: false
