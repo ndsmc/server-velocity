@@ -101,7 +101,7 @@ tools:
     #For ping.
     show-always: false
     #{0} - Original server brand (e.g. Paper).
-    in-game-brand: "НДС - 1 сезон (Velocity v1.3.0+1.20.4 > {0})"
+    in-game-brand: "НДС - 1 сезон (Velocity v1.3.1+1.20.4 > {0})"
   #Doesn't work with srv records.
   hostnames-manager:
     block-join: false
