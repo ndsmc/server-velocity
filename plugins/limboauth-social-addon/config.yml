@@ -67,8 +67,8 @@ main:
     enabled: false
     token: "1234567890"
   discord:
-    enabled: true
-    token: "MTIxMDE3NzA4OTE5NDU2NTY0Mg.GMT0RZ.oTiHHQfhKlnWDAz-LZ0yNn_nMhaLab7JpSXuC0"
+    enabled: false
+    token: ""
     # Available: 
     # addrole <role id>
     # remrole <role id>
